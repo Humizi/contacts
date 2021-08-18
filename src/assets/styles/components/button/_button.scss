@@ -1,0 +1,28 @@
+.button {
+  padding: 6px 16px;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+
+  &--blue {
+    color: $color-white;
+
+    background-color: $color-blue-base;
+    border-radius: 16px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+    &:hover,
+    &:focus {
+      background-color: $color-blue-dark;
+    }
+  }
+
+  &--white {
+    color: $color-blue-base;
+
+    background-color: $color-white;
+    border-radius: 16px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  }
+}
