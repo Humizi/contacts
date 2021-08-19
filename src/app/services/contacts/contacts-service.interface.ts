@@ -5,6 +5,7 @@ interface IContactsService {
   getContactsFromJSON(): Observable<IContact[]>;
   setContacts(data: IContact[]): void;
   getContacts(): IContact[];
+  getLastId(): number;
 }
 
 interface IContact {

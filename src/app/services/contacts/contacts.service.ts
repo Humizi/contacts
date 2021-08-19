@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ContactsService implements IContactsService {
   contacts!: IContact[];
-  contacts$!: Observable<IContact[]>;
+  lastId = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -18,11 +18,23 @@ export class ContactsService implements IContactsService {
     }))
   }
 
-  setContacts(data: IContact[]): void {
-    this.contacts = data
-  }
-
   getContacts(): IContact[] {
     return this.contacts
+  }
+
+  setContacts(data: IContact[]): void {
+    this.contacts = data
+
+    this.setLastId(data);
+  }
+
+  getLastId(): number {
+    return this.lastId;
+  }
+
+  setLastId(contacts: IContact[]): void {
+    this.lastId = contacts.map(contacts => contacts.id).reduce((contact, currentContact) => {
+      return Math.max(contact, currentContact)
+    })
   }
 }

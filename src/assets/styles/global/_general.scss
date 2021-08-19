@@ -43,6 +43,9 @@ input,
 textarea,
 select {
   width: 100%;
+  box-sizing: border-box;
+
+  font-family: $font-family-base;
 }
 
 button {
@@ -52,6 +55,8 @@ button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+
+  font-family: $font-family-base;
 
   background: none;
   border: none;

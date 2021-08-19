@@ -1,10 +1,37 @@
 <main class="base-layout">
-  <section class="wrapper">
+  <form [formGroup]="form" (ngSubmit)="save()" class="wrapper">
     <header class="header">
       <h2 class="title">Add contact</h2>
-
-      <button class="button button--blue" routerLink="/contacts">Back</button>
     </header>
 
-  </section>
+    <div class="form">
+      <div class="form__field">
+        <label class="form__label">
+          <input [formControl]="name" type="text" class="form__input" [class.-filled]="name.value">
+          <span class="form__label-text">Name</span>
+        </label>
+      </div>
+
+      <div class="form__field">
+        <label class="form__label">
+          <input [formControl]="surname" type="text" class="form__input" [class.-filled]="surname.value">
+          <span class="form__label-text">Surname</span>
+        </label>
+      </div>
+
+      <div class="form__field">
+        <label class="form__label">
+          <input [formControl]="phone" type="text" class="form__input" [class.-filled]="phone.value">
+          <span class="form__label-text">Phone</span>
+        </label>
+      </div>
+
+      <button class="button" type="button" (click)="addField()">Add new field</button>
+    </div>
+
+    <footer class="footer">
+      <button class="button button--blue" type="button" [disabled]="form.invalid" [class.-disabled]="form.invalid" (click)="save()">Save contact</button>
+      <button class="button button--blue" type="button" routerLink="/contacts">Cansel</button>
+    </footer>
+  </form>
 </main>

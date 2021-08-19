@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { ContactsEditComponent } from './components/contacts-edit/contacts-edit.component';
@@ -13,7 +15,9 @@ import { NgModule } from '@angular/core';
   ],
   imports: [
     CommonModule,
-    ContactsRoutingModule
+    ContactsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ContactsModule { }

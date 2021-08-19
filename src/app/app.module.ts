@@ -12,8 +12,7 @@ import { NgModule } from '@angular/core';
 @NgModule({
   declarations: [
     AppComponent,
-    BaseLayoutComponent,
-
+    BaseLayoutComponent
   ],
   imports: [
     BrowserModule,

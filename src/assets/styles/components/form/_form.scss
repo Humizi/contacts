@@ -1,0 +1,46 @@
+.form {
+  $root: &;
+  margin-bottom: 32px;
+
+  &__field {
+    position: relative;
+
+    box-sizing: border-box;
+    height: 64px;
+    padding-bottom: 20px;
+    padding-top: 22px;
+    margin-bottom: 32px;
+  }
+
+  &__label-text {
+    position: absolute;
+    top: 32px;
+    left: 0;
+
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba($color: $color-night-gray, $alpha: 0.2);
+
+    transition: all 0.3s ease;
+  }
+
+  &__input {
+    padding: 4px 16px 4px 0;
+
+    font-size: 13px;
+    line-height: 16px;
+
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid $color-mouse-gray;
+  }
+
+  &__input:focus + &__label-text,
+  &__input.-filled + &__label-text {
+    top: 4px;
+
+    color: rgba($color: $color-night-gray, $alpha: 1);
+  }
+}
