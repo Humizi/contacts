@@ -1,7 +1,7 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Component, Inject } from '@angular/core';
-import { IContact, IDATA_SERVICE } from 'src/app/services/data-service.interface';
-import { DataService } from 'src/app/services/data.service';
+import { ICONTACTS_SERVICE } from 'src/app/services/contacts/contacts-service.interface';
+import { ContactsService } from 'src/app/services/contacts/contacts.service';
 
 @Component({
   selector: 'app-base-layout',
@@ -9,9 +9,9 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class BaseLayoutComponent {
 
-  constructor(@Inject(IDATA_SERVICE) public dataService: DataService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(@Inject(ICONTACTS_SERVICE) public contactsService: ContactsService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.data.subscribe((data) => {
-      this.dataService.setContacts(data?.dataContacts)
+      this.contactsService.setContacts(data?.dataContacts)
     })
    }
 }

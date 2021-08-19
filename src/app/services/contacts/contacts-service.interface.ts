@@ -1,7 +1,7 @@
 import { InjectionToken } from "@angular/core";
 import { Observable } from "rxjs";
 
-interface IDataService {
+interface IContactsService {
   getContactsFromJSON(): Observable<IContact[]>;
   setContacts(data: IContact[]): void;
   getContacts(): IContact[];
@@ -14,6 +14,6 @@ interface IContact {
   phone: string;
 }
 
-const IDATA_SERVICE = new InjectionToken<IDataService>('IDataService');
+const ICONTACTS_SERVICE = new InjectionToken<IContactsService>('IDataService');
 
-export { IDataService, IContact, IDATA_SERVICE}
+export { IContactsService, IContact, ICONTACTS_SERVICE}

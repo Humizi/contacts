@@ -1,17 +1,16 @@
 import { Inject, Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable, of, throwError } from "rxjs";
 import { mergeMap, take } from "rxjs/operators";
-import { IDATA_SERVICE } from "../services/data-service.interface";
-import { DataService } from "../services/data.service";
+import { ICONTACTS_SERVICE } from "../services/contacts/contacts-service.interface";
+import { ContactsService } from "../services/contacts/contacts.service";
 
 @Injectable()
 export class DataResolver implements Resolve<any> {
-  constructor(@Inject(IDATA_SERVICE) public dataService: DataService, private router: Router) {}
+  constructor(@Inject(ICONTACTS_SERVICE) public contactsService: ContactsService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-
-    return this.dataService.getContactsFromJSON().pipe(
+    return this.contactsService.getContactsFromJSON().pipe(
       take(1),
       mergeMap((data) => (data ? of(data) : throwError('no data'))),
     );

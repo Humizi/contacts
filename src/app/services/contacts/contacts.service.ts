@@ -1,4 +1,4 @@
-import { IContact, IDataService } from './data-service.interface';
+import { IContact, IContactsService } from './contacts-service.interface';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class DataService implements IDataService {
+export class ContactsService implements IContactsService {
   contacts!: IContact[];
   contacts$!: Observable<IContact[]>;
 

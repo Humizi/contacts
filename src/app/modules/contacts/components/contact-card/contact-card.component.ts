@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
-import { IContact } from 'src/app/services/data-service.interface';
+import { IContact } from 'src/app/services/contacts/contacts-service.interface';
 
 @Component({
   selector: 'app-contact-card',

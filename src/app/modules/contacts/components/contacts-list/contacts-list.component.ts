@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { IContact, IDATA_SERVICE } from 'src/app/services/data-service.interface';
-import { DataService } from 'src/app/services/data.service';
+import { IContact, ICONTACTS_SERVICE } from 'src/app/services/contacts/contacts-service.interface';
+import { ContactsService } from 'src/app/services/contacts/contacts.service';
 
 @Component({
   selector: 'app-contacts-list',
@@ -9,7 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 export class ContactsListComponent {
   contacts: IContact[] = []
 
-  constructor(@Inject(IDATA_SERVICE) public dataService: DataService) {
-    this.contacts = this.dataService.getContacts()
+  constructor(@Inject(ICONTACTS_SERVICE) public contactsService: ContactsService) {
+    this.contacts = this.contactsService.getContacts()
   }
 }

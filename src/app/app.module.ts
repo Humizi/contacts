@@ -1,13 +1,13 @@
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BaseLayoutComponent } from './components/base-layout/base-layout.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ContactsModule } from './modules/contacts/contacts.module';
+import { ContactsService } from './services/contacts/contacts.service';
 import { DataResolver } from './resolvers/data.resolver';
-import { DataService } from './services/data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { IDATA_SERVICE } from './services/data-service.interface';
+import { ICONTACTS_SERVICE } from './services/contacts/contacts-service.interface';
 import { NgModule } from '@angular/core';
-import { BaseLayoutComponent } from './components/base-layout/base-layout.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +24,8 @@ import { BaseLayoutComponent } from './components/base-layout/base-layout.compon
   providers: [
     DataResolver,
     {
-      provide: IDATA_SERVICE,
-      useClass: DataService,
+      provide: ICONTACTS_SERVICE,
+      useClass: ContactsService,
     }
   ],
   bootstrap: [AppComponent]
