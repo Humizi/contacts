@@ -5,28 +5,50 @@
     </header>
 
     <div class="form">
-      <div class="form__field">
-        <label class="form__label">
-          <input [formControl]="name" type="text" class="form__input" [class.-filled]="name.value">
-          <span class="form__label-text">Name</span>
+      <div *ngFor="let control of form.controls | keyvalue" class="form__field form__field--text">
+        <label class="form__label--field-text">
+          <input [formControl]="getFormControl(control.key)" type="text" class="form__input--text" [class.-filled]="control.value.value">
+          <span class="form__label-text">{{ control.key }}</span>
         </label>
       </div>
 
-      <div class="form__field">
-        <label class="form__label">
-          <input [formControl]="surname" type="text" class="form__input" [class.-filled]="surname.value">
-          <span class="form__label-text">Surname</span>
-        </label>
-      </div>
+      <button class="button button--transparent" type="button" [disabled]="isBuilder" [class.-disabled]="isBuilder" (click)="toggleField()">Add new field</button>
+      <div *ngIf="isBuilder" class="form__field-builder">
+        <form class="form__radio-buttons">
+          <div class="form__field form__field--radio">
+            <label class="form__label--radio">
+              <input [formControl]="customFieldType" name="fieldType" value="text" type="radio" class="form__input--radio">
+              <span class="form__label-text">Text</span>
+            </label>
+          </div>
 
-      <div class="form__field">
-        <label class="form__label">
-          <input [formControl]="phone" type="text" class="form__input" [class.-filled]="phone.value">
-          <span class="form__label-text">Phone</span>
-        </label>
-      </div>
+          <div class="form__field form__field--radio">
+            <label class="form__label--radio">
+              <input [formControl]="customFieldType" name="fieldType" value="phone" type="radio" class="form__input--radio">
+              <span class="form__label-text">Phone number</span>
+            </label>
+          </div>
 
-      <button class="button" type="button" (click)="addField()">Add new field</button>
+          <div class="form__field form__field--radio">
+            <label class="form__label--radio">
+              <input [formControl]="customFieldType" name="fieldType" value="link" type="radio" class="form__input--radio">
+              <span class="form__label-text">Link</span>
+            </label>
+          </div>
+        </form>
+
+        <div *ngIf="customFieldType.value === 'text'" class="form__field form__field--text">
+          <label class="form__label--field-text">
+            <input [formControl]="customField" type="text" class="form__input--text" [class.-filled]="customField.value">
+            <span class="form__label-text">Field name</span>
+          </label>
+        </div>
+
+        <div>
+          <button class="button button--blue" [disabled]="!customField.value" [class.-disabled]="!customField.value" type="button" (click)="addField()">+</button>
+          <button class="button button--blue" type="button" (click)="toggleField()">-</button>
+        </div>
+      </div>
     </div>
 
     <footer class="footer">

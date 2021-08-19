@@ -1,18 +1,23 @@
 .form {
   $root: &;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 32px;
 
   &__field {
     position: relative;
 
     box-sizing: border-box;
-    height: 64px;
-    padding-bottom: 20px;
-    padding-top: 22px;
-    margin-bottom: 32px;
+
+    &--text {
+      height: 64px;
+      padding-bottom: 20px;
+      padding-top: 22px;
+      margin-bottom: 32px;
+    }
   }
 
-  &__label-text {
+  &__label--field-text &__label-text {
     position: absolute;
     top: 32px;
     left: 0;
@@ -26,21 +31,45 @@
     transition: all 0.3s ease;
   }
 
-  &__input {
-    padding: 4px 16px 4px 0;
+  &__label--radio {
+    margin-right: 16px;
 
-    font-size: 13px;
-    line-height: 16px;
-
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid $color-mouse-gray;
+    cursor: pointer;
   }
 
-  &__input:focus + &__label-text,
-  &__input.-filled + &__label-text {
+  &__input {
+    &--text {
+      padding: 4px 16px 4px 0;
+
+      font-size: 13px;
+      line-height: 16px;
+
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid $color-mouse-gray;
+    }
+
+    &--radio {
+      width: auto;
+    }
+  }
+
+  &__input--text:focus + &__label-text,
+  &__input--text.-filled + &__label-text {
     top: 4px;
 
     color: rgba($color: $color-night-gray, $alpha: 1);
+  }
+
+  &__field-builder {
+    padding: 24px;
+
+    background-color: $color-white;
+  }
+
+  &__radio-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }

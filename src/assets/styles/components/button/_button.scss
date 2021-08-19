@@ -24,6 +24,16 @@
     }
   }
 
+  &--transparent {
+    margin-left: auto;
+
+    color: $color-blue-base;
+
+    &.-disabled {
+      cursor: default;
+    }
+  }
+
   &--white {
     color: $color-blue-base;
 
