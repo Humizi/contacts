@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 import { Component, Inject } from '@angular/core';
 import { IContact, ICONTACTS_SERVICE } from 'src/app/services/contacts/contacts-service.interface';
@@ -39,12 +39,13 @@ export class ContactsEditComponent {
           if (this.contact.hasOwnProperty(key)) {
             this.form.get(key)?.setValue(this.contact[key]);
             if (!this.fields.includes(key) && key !== 'id') {
-              this.form.addControl(key, new FormControl(this.contact[key], Validators.required));
-              this.customFields.push(key)
-              this.fields.push(key)
+              this.fieldsPush(key, this.contact[key])
             }
           }
         }
+
+        this.phoneFieldsCount = this.fields.filter(field => field.includes('phone_number')).length;
+        this.linkFieldsCount = this.fields.filter(field => field.includes('link')).length;
       }
     });
   }
@@ -53,7 +54,7 @@ export class ContactsEditComponent {
     return (this.form.get(controlName) as FormControl);
   }
 
-  toggleField(): void {
+  toggleBuilder(): void {
     this.isBuilder = !this.isBuilder;
   }
 
@@ -74,11 +75,25 @@ export class ContactsEditComponent {
         break;
     }
 
-    this.form.addControl(fieldName, new FormControl(null, Validators.required));
-    this.fields.push(fieldName);
-    this.customFields.push(fieldName);
+    this.fieldsPush(fieldName);
     this.customFieldName.setValue('')
-    this.toggleField();
+    this.toggleBuilder();
+  }
+
+  fieldsPush(fieldKey: string, fieldValue: string = ''): void {
+    this.form.addControl(fieldKey, new FormControl(fieldValue, this.fieldValidators(fieldKey)));
+    this.fields.push(fieldKey);
+    this.customFields.push(fieldKey);
+  }
+
+  fieldValidators(fieldKey: string): ValidatorFn[] {
+    if (fieldKey.includes('phone_number')) {
+      return [Validators.required, Validators.pattern(/^(?!\+{2,})(\+[0-9]+)$/)]
+    } else if (fieldKey.includes('link')) {
+      return [Validators.required, Validators.pattern(/(^https?:\/\/)[\w. /%=&#@*(){}+?!^$-\\]+$/i)]
+    } else {
+      return [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern(/^[a-zA-Z '-]+$/)]
+    }
   }
 
   getFieldLabel(name: string): string {
@@ -95,6 +110,12 @@ export class ContactsEditComponent {
     this.customFields = this.customFields.filter((field => field !== fieldName));
     this.fields = this.fields.filter((field => field !== fieldName));
     this.form.removeControl(fieldName);
+
+    if (fieldName.includes('phone_number')) {
+      this.phoneFieldsCount--;
+    } else if (fieldName.includes('link')) {
+      this.linkFieldsCount--;
+    }
   }
 
   isInvalidCustomField(): boolean {

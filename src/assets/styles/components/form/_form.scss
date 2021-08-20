@@ -5,6 +5,7 @@
   margin-bottom: 32px;
 
   &__field-builder {
+    margin-top: 16px;
     padding: 24px;
 
     background-color: $color-white;
@@ -15,5 +16,11 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 24px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
   }
 }

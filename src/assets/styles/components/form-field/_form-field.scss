@@ -14,7 +14,7 @@
 
   &__label--field-text &__label-text {
     position: absolute;
-    top: 32px;
+    top: 24px;
     left: 0;
 
     text-transform: uppercase;
@@ -27,13 +27,61 @@
   }
 
   &__label--field-text {
+    display: flex;
     width: 100%;
   }
 
   &__label--radio {
+    position: relative;
+
     margin-right: 16px;
+    padding-left: 28px;
 
     cursor: pointer;
+  }
+
+  &__label--radio &__label-text {
+    font-size: 14px;
+    line-height: 20px;
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      top: 5px;
+      left: 0;
+
+      width: 18px;
+      height: 18px;
+
+      border: 1px solid $color-mouse-grey;
+      border-radius: 50%;
+    }
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 9px;
+      left: 4px;
+
+      width: 10px;
+      height: 10px;
+
+      border: 1px solid $color-mild-grey;
+      border-radius: 50%;
+    }
+  }
+
+  &__input--radio:checked + &__label-text {
+    &::before,
+    &::after {
+      border-color: $color-blue-base;
+    }
+
+    &::after {
+      background-color: $color-blue-base;
+    }
   }
 
   &__input {
@@ -46,6 +94,11 @@
       background-color: transparent;
       border: none;
       border-bottom: 2px solid $color-mouse-grey;
+
+      &.ng-invalid.-filled {
+        color: $color-red;
+        border-color: $color-red;
+      }
     }
 
     &--radio {
@@ -53,15 +106,19 @@
     }
   }
 
+  &__input--text.ng-invalid.-filled + &__label-text {
+    color: $color-red;
+  }
+
   &__input--text:focus + &__label-text,
   &__input--text.-filled + &__label-text {
-    top: 4px;
+    top: 0;
 
     color: rgba($color: $color-night-gray, $alpha: 1);
   }
 
   &__button-remove {
-    margin-top: 19px;
-    margin-left: 14px;
+    margin-top: 12px;
+    margin-left: 17px;
   }
 }

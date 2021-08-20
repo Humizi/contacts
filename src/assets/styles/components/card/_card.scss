@@ -10,14 +10,26 @@
     margin-bottom: 8px;
   }
 
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+    font-size: 13px;
+    line-height: 16px;
+  }
+
   &__item {
+    display: flex;
+
     &:not(:last-child) {
       margin-bottom: 8px;
     }
   }
 
-  &__title {
-    font-size: 13px;
+  &__button-edit {
+    padding: 0;
+
     line-height: 16px;
   }
 

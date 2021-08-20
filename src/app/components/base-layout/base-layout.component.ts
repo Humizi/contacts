@@ -5,7 +5,11 @@ import { ContactsService } from 'src/app/services/contacts/contacts.service';
 
 @Component({
   selector: 'app-base-layout',
-  templateUrl: './base-layout.component.html'
+  template: `
+      <main class="base-layout">
+        <router-outlet></router-outlet>
+       </main>
+  `
 })
 export class BaseLayoutComponent {
 

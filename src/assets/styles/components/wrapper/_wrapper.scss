@@ -1,6 +1,11 @@
 .wrapper {
+  box-sizing: border-box;
   width: 335px;
   padding: 16px 32px 48px;
 
   background-color: $color-grey;
+
+  &--form {
+    width: 416px;
+  }
 }
