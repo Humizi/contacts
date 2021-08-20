@@ -1,15 +1,18 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Component, Inject } from '@angular/core';
-import { ICONTACTS_SERVICE } from 'src/app/services/contacts/contacts-service.interface';
+import { IContact, ICONTACTS_SERVICE } from 'src/app/services/contacts/contacts-service.interface';
 import { ContactsService } from 'src/app/services/contacts/contacts.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-contacts-edit',
   templateUrl: './contacts-edit.component.html'
 })
 export class ContactsEditComponent {
+  public status!: 'add' | 'edit';
+  private id?: string;
+  private contact?: IContact;
   public isBuilder = false;
   public customFieldName = new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern(/^[a-zA-Z]+$/)]);
   public customFieldType = new FormControl('text');
@@ -23,7 +26,28 @@ export class ContactsEditComponent {
     phone_number: new FormControl(null, [Validators.required, Validators.pattern(/^(?!\+{2,})(\+[0-9]+)$/)])
   })
 
-  constructor(@Inject(ICONTACTS_SERVICE) private contactsService: ContactsService, private router: Router) {}
+  constructor(@Inject(ICONTACTS_SERVICE) private contactsService: ContactsService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.url.subscribe(data => {
+      this.status = data[0].path as 'add' | 'edit';
+
+      if (this.status === 'edit') {
+        this.id = data[1].path;
+
+        this.contact = this.contactsService.getContacts().find(contact => contact.id === this.id);
+
+        for (const key in this.contact) {
+          if (this.contact.hasOwnProperty(key)) {
+            this.form.get(key)?.setValue(this.contact[key]);
+            if (!this.fields.includes(key) && key !== 'id') {
+              this.form.addControl(key, new FormControl(this.contact[key], Validators.required));
+              this.customFields.push(key)
+              this.fields.push(key)
+            }
+          }
+        }
+      }
+    });
+  }
 
   getFormControl(controlName: string): FormControl {
     return (this.form.get(controlName) as FormControl);
@@ -80,15 +104,11 @@ export class ContactsEditComponent {
   }
 
   save(): void {
-    console.log(this.form);
     const contacts = this.contactsService.getContacts();
     const id = this.contactsService.getLastId() + 1;
-    const formData = {id, ...this.form.getRawValue()};
+    const formData = {id: id.toString(), ...this.form.getRawValue()};
     contacts.push(formData);
     this.contactsService.setContacts(contacts);
     this.router.navigate(['/app/contacts']);
-
-    console.log('Contacts: ', this.contactsService.getContacts());
-    console.log('Contacts: ', this.contactsService.getLastId());
   }
 }

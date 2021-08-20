@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="wrapper">
   <header class="header">
-    <h2 class="title">Add contact</h2>
+    <h2 class="title">{{ status | titlecase}} contact</h2>
   </header>
 
   <div class="form">

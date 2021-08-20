@@ -16,14 +16,14 @@ export class ContactCardComponent implements OnInit {
   public customFields: {[key: string]: string} = {};
 
   ngOnInit(): void {
-    for (const item in this.contact) {
-      if (this.contact.hasOwnProperty(item)) {
-        if (item.includes('phone_number')) {
-          this.phoneNumbers.push(this.contact[item]);
-        } else if (item.includes('link')) {
-          this.links.push(this.contact[item]);
-        } else if (item !== 'id' && item !== 'name' && item !== 'surname') {
-          this.customFields[item] = this.contact[item];
+    for (const key in this.contact) {
+      if (this.contact.hasOwnProperty(key)) {
+        if (key.includes('phone_number')) {
+          this.phoneNumbers.push(this.contact[key]);
+        } else if (key.includes('link')) {
+          this.links.push(this.contact[key]);
+        } else if (key !== 'id' && key !== 'name' && key !== 'surname') {
+          this.customFields[key] = this.contact[key];
         }
       }
     }
