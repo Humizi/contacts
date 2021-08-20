@@ -9,10 +9,11 @@ interface IContactsService {
 }
 
 interface IContact {
-  id: number;
+  id: string;
   name: string;
   surname: string;
-  phone: string;
+  phone_number: string;
+  [key: string]: string;
 }
 
 const ICONTACTS_SERVICE = new InjectionToken<IContactsService>('IDataService');

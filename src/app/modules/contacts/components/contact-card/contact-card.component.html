@@ -1,9 +1,16 @@
+<h3 class="card__title">{{ contact.name }} {{contact.surname}}</h3>
+
 <ul class="card__list">
-  <li class="card__item">
-    <h3 class="card__title">{{ contact.name }} {{contact.surname}}</h3>
+  <li *ngFor="let item of phoneNumbers" class="card__item">
+    <a href="tel:{{item}}" class="card__link">{{ item }}</a>
   </li>
-  <li class="card__item">
-    <a href="tel:{{contact.phone}}" class="card__phone">{{ contact.phone}}</a>
+
+  <li *ngFor="let item of links" class="card__item">
+    <a [href]="item" class="card__link" target="_blank">{{ item }}</a>
+  </li>
+
+  <li *ngFor="let item of customFields | keyvalue" class="card__item">
+    <p class="card__text">{{item.key}}: {{ item.value }}</p>
   </li>
 </ul>
 

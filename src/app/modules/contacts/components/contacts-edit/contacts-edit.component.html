@@ -1,59 +1,61 @@
-<main class="base-layout">
-  <form [formGroup]="form" (ngSubmit)="save()" class="wrapper">
-    <header class="header">
-      <h2 class="title">Add contact</h2>
-    </header>
+<form [formGroup]="form" (ngSubmit)="save()" class="wrapper">
+  <header class="header">
+    <h2 class="title">Add contact</h2>
+  </header>
 
-    <div class="form">
-      <div *ngFor="let control of form.controls | keyvalue" class="form__field form__field--text">
-        <label class="form__label--field-text">
-          <input [formControl]="getFormControl(control.key)" type="text" class="form__input--text" [class.-filled]="control.value.value">
-          <span class="form__label-text">{{ control.key }}</span>
-        </label>
-      </div>
+  <div class="form">
+    <div *ngFor="let field of fields" class="form-field form-field--text">
+      <label class="form-field__label--field-text">
+        <input [formControl]="getFormControl(field)" type="text" class="form-field__input--text" [class.-filled]="getFormControl(field).value">
+        <span class="form-field__label-text">{{ getFieldLabel(field) }}</span>
+      </label>
 
-      <button class="button button--transparent" type="button" [disabled]="isBuilder" [class.-disabled]="isBuilder" (click)="toggleField()">Add new field</button>
-      <div *ngIf="isBuilder" class="form__field-builder">
-        <form class="form__radio-buttons">
-          <div class="form__field form__field--radio">
-            <label class="form__label--radio">
-              <input [formControl]="customFieldType" name="fieldType" value="text" type="radio" class="form__input--radio">
-              <span class="form__label-text">Text</span>
-            </label>
-          </div>
+      <button *ngIf="isCustomField(field)" class="form-field__button-remove button--remove" type="button" (click)="removeField(field)"></button>
+    </div>
 
-          <div class="form__field form__field--radio">
-            <label class="form__label--radio">
-              <input [formControl]="customFieldType" name="fieldType" value="phone" type="radio" class="form__input--radio">
-              <span class="form__label-text">Phone number</span>
-            </label>
-          </div>
-
-          <div class="form__field form__field--radio">
-            <label class="form__label--radio">
-              <input [formControl]="customFieldType" name="fieldType" value="link" type="radio" class="form__input--radio">
-              <span class="form__label-text">Link</span>
-            </label>
-          </div>
-        </form>
-
-        <div *ngIf="customFieldType.value === 'text'" class="form__field form__field--text">
-          <label class="form__label--field-text">
-            <input [formControl]="customField" type="text" class="form__input--text" [class.-filled]="customField.value">
-            <span class="form__label-text">Field name</span>
+    <button class="button button--transparent" type="button" [disabled]="isBuilder" [class.-disabled]="isBuilder" (click)="toggleField()">Add new field</button>
+    <div *ngIf="isBuilder" class="form-field-builder">
+      <form class="form__radio-buttons">
+        <div class="form-field form-field--radio">
+          <label class="form-field__label--radio">
+            <input [formControl]="customFieldType" name="fieldType" value="text" type="radio" class="form-field__input--radio">
+            <span class="form-field__label-text">Text</span>
           </label>
         </div>
 
-        <div>
-          <button class="button button--blue" [disabled]="!customField.value" [class.-disabled]="!customField.value" type="button" (click)="addField()">+</button>
-          <button class="button button--blue" type="button" (click)="toggleField()">-</button>
+        <div class="form-field form-field--radio">
+          <label class="form-field__label--radio">
+            <input [formControl]="customFieldType" name="fieldType" value="phone_number" type="radio" class="form-field__input--radio">
+            <span class="form-field__label-text">Phone number</span>
+          </label>
         </div>
+
+        <div class="form-field form-field--radio">
+          <label class="form-field__label--radio">
+            <input [formControl]="customFieldType" name="fieldType" value="link" type="radio" class="form-field__input--radio">
+            <span class="form-field__label-text">Link</span>
+          </label>
+        </div>
+      </form>
+
+      <div *ngIf="customFieldType.value === 'text'" class="form-field form-field--text">
+        <label class="form-field__label--field-text">
+          <input [formControl]="customFieldName" type="text" class="form-field__input--text" [class.-filled]="customFieldName.value">
+          <span class="form-field__label-text">Field name</span>
+        </label>
+      </div>
+
+      <div>
+        <button class="button button--blue" type="button" [disabled]="isInvalidCustomField()" [class.-disabled]="isInvalidCustomField()" (click)="addField()">+</button>
+        <button class="button__remove-wrapper" type="button" (click)="toggleField()">
+          <span class="button--remove"></span>
+        </button>
       </div>
     </div>
+  </div>
 
-    <footer class="footer">
-      <button class="button button--blue" type="button" [disabled]="form.invalid" [class.-disabled]="form.invalid" (click)="save()">Save contact</button>
-      <button class="button button--blue" type="button" routerLink="/contacts">Cansel</button>
-    </footer>
-  </form>
-</main>
+  <footer class="footer">
+    <button class="button button--blue" type="button" [disabled]="form.invalid" [class.-disabled]="form.invalid" (click)="save()">Save contact</button>
+    <button class="button button--blue" type="button" routerLink="/contacts">Cansel</button>
+  </footer>
+</form>

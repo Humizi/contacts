@@ -33,7 +33,7 @@ export class ContactsService implements IContactsService {
   }
 
   setLastId(contacts: IContact[]): void {
-    this.lastId = contacts.map(contacts => contacts.id).reduce((contact, currentContact) => {
+    this.lastId = contacts.map(contacts => +contacts.id).reduce((contact, currentContact) => {
       return Math.max(contact, currentContact)
     })
   }

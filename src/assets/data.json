@@ -1,20 +1,20 @@
 [
   {
-      "id": 1,
+      "id": "1",
       "name": "Bill",
       "surname": "Gates",
-      "phone": "+1 917 123 4566"
+      "phone_number": "+1 917 123 4566"
   },
   {
-      "id": 2,
+      "id": "2",
       "name": "Sergei",
       "surname": "Brin",
-      "phone": "+7 917 321 6654"
+      "phone_number": "+7 917 321 6654"
   },
   {
-      "id": 3,
+      "id": "3",
       "name": "Mark",
       "surname": "Zuckerberg",
-      "phone": "+7 917 231 5564"
+      "phone_number": "+7 917 231 5564"
   }
 ]
